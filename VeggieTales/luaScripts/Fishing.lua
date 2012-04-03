@@ -1,8 +1,42 @@
+-- If you have never fished before, then you must manually apply your first lure. Self Click, Skills, Fishing, Use Lure..., first!
+-- You can verify if you already have a lure set by Self Click, Skills, Fishing, Inspect Current Lure.
+
+
+-- After verifying the above steps, here is how to use the macro:
+-- Pin up your Self Click, Skills, Fishing, Use Lure... window (no other pinned up windows can exist)
+-- Must have chat option 'Chat and Inventory can be minimized & Minimized chat-channels are still visible Enabled
+-- Must have Main Chat tab Showing and Large enough for 4-5 Lines showing and Long enough so the lines don't wrap.
+
+-- Yes, this macro looks at your chat screen, so make sure you read the above statement for it to work correctly.
+-- Each line of text must not scroll/wrap to the next line. If it does, then drag your chat window wider so it doesn't.
+-- You want to make your chat very wide. It is possible to see a long message like "Though you lost your lure, you did catch a 15 deben Orange Spongefish"
+-- At 1280x1024 your chat screen should almost reach to the mid point of your screen to avoid having a chat line wrap to next line
+
+-- MAKE SURE YOU HAVE MAIN CHAT TAB in focus, or else expect to get "attempt to index global "Coords' (a nil value)" errors.
+-- Or try slightly adjusting the width of the screen if you get this error (and you verfied main chat tab is showing)
+
+-- This macro writes to a log file for every fish you catch
+-- The log will show the time, name of fish and debens in the VeggieTales/Fishing folder. View Fishlog.txt anytime for report/history.
+
+
+-- These are currently refered to as Common Fish in the below 'SkipCommon' type of fishes (True or False):
+
+--Abdju
+--Chromis
+--Catfish
+--Carp
+--Perch
+--Phagrus
+--Tilapia
+
+
+
+
 loadfile("luaScripts/screen_reader_common.inc")();
 loadfile("luaScripts/ui_utils.inc")();
 loadfile("luaScripts/Fishing_Func.inc")();
 
---Variables Used By Program -- Dont Edit Unless you know.
+--Variables Used By Program -- Dont Edit Unless you know how.
 CurrentLure = ""; --Don't Edit
 gui_log_fish = {}; --Don't Edit, holds log display
 log_fish = {};
@@ -16,9 +50,9 @@ TotalLuresUsed = 0;
 
 --Custom Variables-- Edit To Change Fishing Casts, Skips, Updates.
 TotalCasts=5; --Total Casts per lure, if a fish caught. If no fish then it skips.
-SkipCommon = true; --Skips to next lure if fish caught is a common.
+SkipCommon = false; --Skips to next lure if fish caught is a common.
 --AlmostCaughtAttempts = 0; --Adds additional attempts to the current lure if Unusual, Strange fish are seen
-LureChangesToUpdateTimer = 3; --Total lures used before time is updated. Zero updates every new lure.
+LureChangesToUpdateTimer = 5; --Total lures used before time is updated. Zero updates every new lure.
 
 
 function SetupLureGroup()
@@ -343,7 +377,7 @@ function gui_refresh()
 end
 
 function doit()
-	askForWindow("");
+	askForWindow("There are too many steps to make this macro work correctly. Click the edit button, to left (after Exiting), to view the comments/instructions on top, for full instructions.");
 	--Gui_Main();
 	
 	PlayersLures = SetupLureGroup();
