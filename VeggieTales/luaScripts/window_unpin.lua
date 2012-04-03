@@ -8,6 +8,8 @@
 loadfile("luaScripts/screen_reader_common.inc")();
 loadfile("luaScripts/ui_utils.inc")();
 
+foundThis = 0;
+foundUnpin = 0;
 
 
 function doit()
@@ -20,18 +22,17 @@ function doit()
 
 	clickAllRight("This.png", 1);
 	lsSleep(200);
-	
+
 
 
 -- Do another check for unpin.png, Rare circumstances a window could not have the word 'This'. ie flax window that dropped to seed.  Searching for 'This' is more accurate, especially for overlapping windows, especially the thistle_new layout (from windows_arranger.lua). Using unpin.png will only close one window if its in thistle_new layout. But we will just double check for unpin.png, just in case...
 
 
 
-	window_locs = findAllImages("unpin.png");
+	window_locs = findAllImages("Unpin.png");
 
-	clickAllRight("unpin.png", 1);
+	clickAllRight("Unpin.png", 1);
 	lsSleep(200);
-
 
 
 end
@@ -45,8 +46,10 @@ function clickAllRight(image_name)
 	local buttons = findAllImages(image_name);
 	
 	if #buttons == 0 then
-		statusScreen("Could not find any pinned up windows...");
+		statusScreen("Could not find any pinned up windows with " .. image_name .. " Skipping...");
 		lsSleep(1500);
+
+
 	else
 		statusScreen("Clicking " .. #buttons .. "windows(s)...");
 		if up then
